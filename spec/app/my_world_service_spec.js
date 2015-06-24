@@ -156,7 +156,7 @@ describe("MyWorldService", function() {
       it("returns true", function() {
         expect(returnValue).toEqual(true);
       });
-      return
+      return;
       it("there is one less Rock in Stock", function() {
         expect(numberOfRocksInStockAfter).toEqual(numberOfRocksInStockBefore - 1);
       });
@@ -170,7 +170,7 @@ describe("MyWorldService", function() {
         expect(numberOfRocksOwnedAfter).toEqual(numberOfRocksOwnedBefore + 1);
       });
     });
-return;
+
     describe("Giving Moe too many Rocks", function() {
       beforeEach(function() {
         service.acquireThing("Moe", "Rock");
@@ -186,7 +186,7 @@ return;
       });
     });
   });
-
+return;
   describe("#returnThing()", function() {
     describe("Moe returns a Rock", function() {
       var numberOfRocksOwnedBefore,

@@ -72,6 +72,24 @@ Person.prototype.hasThing = function(thingName) {
         return gotThing;
 };
 
-MyWorldService.prototype.acquireThing = function() {
-    var 
+MyWorldService.prototype.acquireThing = function(person, thing) {
+    var gotThings, personHasThing;
+    var validPerson = this.getPerson(person);
+    
+    var serviceThingObj = this.getThing(thing);
+    if (serviceThingObj.numberInStock === 0)
+    throw new Error("Currently out of stock: ", thing);
+    
+    if ((Object.getOwnPropertyNames(validPerson).length === 0) || (validPerson === undefined)) {
+        return false;
+    }
+    else {
+        serviceThingObj.numberOwned++;
+        serviceThingObj.numberInStock--;
+        
+        gotThings = validPerson.things;
+        
+        gotThings.push(thing);
+    }
+    return true;
 };

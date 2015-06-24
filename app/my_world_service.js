@@ -1,27 +1,77 @@
-var MyWorldService = function(){
+/* globals MyWorldService _ */
 
-}
+var MyWorldService = function(people, things) {
+    this.people = people,
+    this.things = things
+};
 
-var rock, paper, scissors;
-var moe, larry, curly, shep;
-var service;
+var Thing = function(params) {
+    var defineParams = { name: 'Rock', numberInStock: 0, numberOwned: 0 };
+    var values = _.assign(defineParams, params);
+    this.name = values.name,
+    this.numberInStock = values.numberInStock,
+    this.numberOwned = values.numberOwned
+    };
 
-var things = [rock, paper, scissors];
-var people = [moe, larry, curly, shep];
-var service = new MyWorldService(people, things);
+var Person = function(params) {
+    this.name = params.name;
+    this.active = params.active;
+    this.things = params.things;
+    
+    if (params.things === undefined) {
+        this.things = [];
+    }
+};
 
+MyWorldService.prototype.getPeople = function(active) {
+    var thePeople;
+    if (active == true)
+    thePeople = _.filter(this.people, 'active');
+    else 
+        thePeople = this.people;
+        
+    return _.sortBy(thePeople, 'name');
+};
 
-function Thing(config){
-    this.name = config.name;
-    this.numberInStock = config.numberInStock;
-    this.numberOwned = config.numberOwned;
-}
+MyWorldService.prototype.getPerson = function(name) {
+    var gotPerson = {};
+    
+    _.forEach(this.people, function(obj) {
+        if (obj.name == name) {
+            gotPerson = obj;
+            return false;
+        }
+    });
+    return gotPerson;
+};
 
-function Person(config){
-    this.name = config.name;
-    this.active = config.active;
-}
+MyWorldService.prototype.getThings = function() {
+    return _.sortBy(this.things, 'name');
+};
 
-//var rock = new Thing("rock");
+MyWorldService.prototype.getThing = function(thingName) {
+    var thing, gotThing = {};
+    
+    _.forEach(this.things, function(obj) {
+        if (obj.name == thingName) {
+            gotThing = obj;
+            return false;
+        }
+    });
+    return gotThing;
+};
 
-//var moe = new Person("moe");
+Person.prototype.hasThing = function(thingName) {
+    var gotThing = false;
+    var personHasThing = _.forEach(this.things, function(name) {
+        if (thingName === name)
+            return false;
+    });
+    if (personHasThing.length !== 0)
+        gotThing = true;
+        return gotThing;
+};
+
+MyWorldService.prototype.acquireThing = function() {
+    var 
+};
